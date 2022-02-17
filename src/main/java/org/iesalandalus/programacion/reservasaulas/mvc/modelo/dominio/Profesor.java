@@ -90,9 +90,7 @@ public class Profesor {
 	private String formateaNombre(String nombreSinFormato) {
 		String nombre = nombreSinFormato.trim().replaceAll("\\s{2,}", " ").toLowerCase();
 		char cadenaChar[] = new char[nombre.length()];
-		for (int i = 0; i < nombre.length(); ++i) {
-			cadenaChar[i] = nombre.charAt(i);
-		}
+		cadenaChar=nombre.toCharArray();
 		for (int i = 0; i < cadenaChar.length; ++i) {
 			if (cadenaChar[i] == ' ') {
 				cadenaChar[i + 1] = Character.toUpperCase(cadenaChar[i + 1]);
