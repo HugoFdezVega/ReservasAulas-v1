@@ -207,12 +207,15 @@ public class Vista {
 			Profesor profesor = new Profesor(nombreProfesor, CORREO_VALIDO);
 			if (controlador.buscarProfesor(profesor) == null) {
 				System.out.println(
-						"El profesor introducido no existe. Por favor, creélo antes de intentar realizar una reserva con él.");
+						"ERROR: El profesor introducido no existe. Por favor, creélo antes de intentar realizar una reserva con él.");
 			} else {
 				reservaARealizar = leerReserva(controlador.buscarProfesor(profesor));
-				if (controlador.buscarAula(reservaARealizar.getAula()) == null) {
+				if(reservaARealizar==null) {
+					System.out.println("ERROR: La fecha introducida debe ser posterior a la presente");
+				}
+				else if (controlador.buscarAula(reservaARealizar.getAula()) == null) {
 					System.out.println(
-							"El aula introducida no existe. Por favor, creéla antes de intentar realizar una reserva con ella.");
+							"ERROR: El aula introducida no existe. Por favor, creéla antes de intentar realizar una reserva con ella.");
 				} else {
 					controlador.realizarReserva(reservaARealizar);
 					System.out.println("Reserva realizada correctamente.");
@@ -242,7 +245,13 @@ public class Vista {
 		} catch (NullPointerException | IllegalArgumentException e) {
 			System.out.println(e.getMessage());
 		}
-		return new Reserva(reserva);
+		if(dia.isBefore(LocalDate.now())) {
+			reserva=null;
+		}
+		else {
+			reserva=new Reserva(reserva);
+		}
+		return reserva;
 	}
 
 //Método que también hace uso del leerReserva anterior para generar una reserva que pasaremos como parámetro al método homónimo del controlador. Dado que

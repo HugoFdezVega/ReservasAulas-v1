@@ -114,10 +114,7 @@ public class Consola {
 				System.out.println("ERROR: Formato incorrecto");
 				problema = true;
 			}
-			if(fechaFinal.isBefore(LocalDate.now())) {
-				System.out.println("ERROR: La fecha introducida no puede ser anterior al día presente");
-				problema=true;
-			}
+
 		} while (problema == true);
 		return fechaFinal;
 	}
